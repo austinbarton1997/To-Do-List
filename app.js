@@ -18,10 +18,16 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   const day = date.getDay();
   res.render("list", { listTitle: day, newListItem: items });
+  if (req.body.item === "salt") {
+    console.log("salt");
+  }
 });
 
 app.get("/work", (req, res) => {
   res.render("list", { listTitle: "Work List", newListItem: workItems });
+  if (req.body.item === "salt") {
+    console.log("salt");
+  }
 });
 
 app.get("/about", (req, res) => {
@@ -30,7 +36,7 @@ app.get("/about", (req, res) => {
 
 app.post("/", function (req, res) {
   const item = req.body.newItem;
-  console.log(req.body);
+
   if (req.body.list === "Work List") {
     workItems.push(item);
     res.redirect("/work");
@@ -38,8 +44,9 @@ app.post("/", function (req, res) {
     items.push(item);
     res.redirect("/");
   }
+  console.log(req.body.item);
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server started on port 3000.");
 });
