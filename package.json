@@ -15,9 +15,6 @@
   "bugs": {
     "url": "https://github.com/austinbarton1997/To-Do-List/issues"
   },
-  "scripts": {
-    "start": "node app.js"
-  },
   "homepage": "https://github.com/austinbarton1997/To-Do-List#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
