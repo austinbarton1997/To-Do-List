@@ -36,15 +36,21 @@ app.get("/about", (req, res) => {
 
 app.post("/", function (req, res) {
   const item = req.body.newItem;
-
   if (req.body.list === "Work List") {
-    workItems.push(item);
-    res.redirect("/work");
+    if (item === "") {
+      console.log("whoops");
+    } else {
+      workItems.push(item);
+      res.redirect("/work");
+    }
   } else {
-    items.push(item);
-    res.redirect("/");
+    if (item === "") {
+      console.log("whoops");
+    } else {
+      items.push(item);
+      res.redirect("/");
+    }
   }
-  console.log(req.body.item);
 });
 
 app.listen(process.env.PORT || 3000, () => {
