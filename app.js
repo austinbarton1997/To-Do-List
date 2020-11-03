@@ -3,8 +3,22 @@ const bodyParser = require("body-parser");
 const { render } = require("ejs");
 const date = require(__dirname + "/date.js");
 const app = express();
-const items = [];
-const workItems = [];
+const mysql = require('mysql');
+
+const { Sequelize, DataTypes } = require('sequelize');
+
+const sequelize = new Sequelize('ajbarton_todo-list', 'ajbarton_admin', 'Abcdefg12', {
+  host: 'austinbarton.dev',
+  dialect: 'mysql'
+});
+
+const itemSchema = sequelize.define("items", {
+  name: {
+    type: DataTypes.STRING
+  }
+});
+
+sequelize.sync();
 
 app.set("view engine", "ejs");
 app.use(
@@ -18,16 +32,10 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   const day = date.getDay();
   res.render("list", { listTitle: day, newListItem: items });
-  if (req.body.item === "salt") {
-    console.log("salt");
-  }
 });
 
 app.get("/work", (req, res) => {
   res.render("list", { listTitle: "Work List", newListItem: workItems });
-  if (req.body.item === "salt") {
-    console.log("salt");
-  }
 });
 
 app.get("/about", (req, res) => {
